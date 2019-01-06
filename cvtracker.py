@@ -1,10 +1,19 @@
 import numpy as np
 import cv2 
-img=cv2.imread('new.png')
-imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-ret, thresh = cv2.threshold(imgray, 127, 255, 0)
-im2, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-cv2.drawContours(img, contours, -1, (0,255,0), 3)
+img=cv2.imread('new.png')#read the image
+imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)#to greyscale conversion
+gray = np.float32(imgray)#converting to float32 for giving input to cornerharris
+dst = cv2.cornerHarris(gray,2,3,0.04)#cornerharris detects the intensity changes in all direction and thus finds a corner
+#result is dilated for marking the corners, not important
+dst = cv2.dilate(dst,None)
+
+# Threshold for an optimal value, it may vary depending on the image.
+img[dst>0.01*dst.max()]=[0,0,255]
+
+
+ret, thresh = cv2.threshold(imgray, 127, 255, 0) #returning and tthresholding set for the colors
+im2, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE) #setting the conditions for contour
+cv2.drawContours(img, contours, -1, (0,255,0), 3)#drawing a contour
 cv2.imshow('image',img)
-cv2.waitKey(0)
+cv2.waitKey(0)#wait for any keypress
 cv2.destroyAllWindows()
