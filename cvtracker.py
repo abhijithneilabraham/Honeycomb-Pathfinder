@@ -10,10 +10,8 @@ dst = cv2.dilate(dst,None)
 # Threshold for an optimal value, it may vary depending on the image.
 img[dst>0.01*dst.max()]=[0,0,255]
 
+edges = cv2.Canny(img,100,200)
 
-ret, thresh = cv2.threshold(imgray, 127, 255, 0) #returning and tthresholding set for the colors
-im2, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE) #setting the conditions for contour
-cv2.drawContours(img, contours, -1, (0,255,0), 3)#drawing a contour
 cv2.imshow('image',img)
 cv2.waitKey(0)#wait for any keypress
 cv2.destroyAllWindows()
