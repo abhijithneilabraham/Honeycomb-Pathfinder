@@ -69,6 +69,22 @@ def astar(maze, start, end):#maze is contours.start and end are the initial and 
                 current = current.parent
             return path[::-1]
         children = []
-        edges=[]#this is for edges from cv2.cannyedges
-        for new_position in edges:
-             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
+        contours=[]#putting this here for reference
+        for new_position in contours:
+            
+            node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
+             
+            # Make sure within range
+            if node_position[0] > (len(maze) - 1) or node_position[0] < 0 or node_position[1] > (len(maze[len(maze)-1]) -1) or node_position[1] < 0:
+                continue
+
+            # Make sure walkable terrain
+            if maze[node_position[0]][node_position[1]] != 0:
+                continue
+
+            # Create new node
+            new_node = Node(current_node, node_position)
+
+            # Append
+            children.append(new_node)
+            
