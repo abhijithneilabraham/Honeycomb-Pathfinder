@@ -12,7 +12,7 @@ img=cv2.imread('new.png')#read the image
 imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 ret,thresh = cv2.threshold(imgray,127,255,0)
 im2, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)#to greyscale conversion
-
+print(contours)
 gray = np.float32(imgray)#converting to float32 for giving input to cornerharris
 dst = cv2.cornerHarris(gray,2,3,0.04)#cornerharris detects the intensity changes in all direction and thus finds a corner
 #result is dilated for marking the corners, not important
