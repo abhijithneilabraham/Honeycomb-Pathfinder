@@ -69,8 +69,8 @@ def astar(maze, start, end):#maze is contours.start and end are the initial and 
                 current = current.parent
             return path[::-1]
         children = []
-        contours=[]#putting this here for reference
-        for new_position in contours:
+        corners=[]#putting this here for reference
+        for new_position in corners:
             
             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
              
@@ -87,4 +87,23 @@ def astar(maze, start, end):#maze is contours.start and end are the initial and 
 
             # Append
             children.append(new_node)
-            
+        # Loop through children
+        for child in children:
+
+            # Child is on the closed list
+            for closed_child in closed_list:
+                if child == closed_child:
+                    continue
+
+            # Create the f, g, and h values
+            child.g = current_node.g + 1
+            child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
+            child.f = child.g + child.h
+
+            # Child is already in the open list
+            for open_node in open_list:
+                if child == open_node and child.g > open_node.g:
+                    continue
+
+            # Add the child to the open list
+            open_list.append(child)
