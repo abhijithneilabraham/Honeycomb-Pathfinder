@@ -53,7 +53,18 @@ def astar(maze, start, end):#maze is contours.start and end are the initial and 
         # Get the current node
         current_node = open_list[0]
         current_index = 0
-        for index, item in enumerate(open_list):
+        for index, item in enumerate(open_list):#enumerate gives index and the object inside list
             if item.f < current_node.f:
                 current_node = item
                 current_index = index
+        open_list.pop(current_index)
+        closed_list.append(current_node)
+
+        # Found the goal
+        if current_node == end_node:
+            path = []
+            current = current_node
+            while current is not None:
+                path.append(current.position)
+                current = current.parent
+            return path[::-1]
