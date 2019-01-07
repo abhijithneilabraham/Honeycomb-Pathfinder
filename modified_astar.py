@@ -68,3 +68,7 @@ def astar(maze, start, end):#maze is contours.start and end are the initial and 
                 path.append(current.position)
                 current = current.parent
             return path[::-1]
+        children = []
+        edges=[]#this is for edges from cv2.cannyedges
+        for new_position in edges:
+             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
