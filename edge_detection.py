@@ -9,4 +9,6 @@ import numpy as np
 import cv2 as cv
 img = cv.imread('new.png',0)
 edges = cv.Canny(img,100,200)
+events = [i for i in dir(cv) if 'EVENT' in i]
+print(events)
 
