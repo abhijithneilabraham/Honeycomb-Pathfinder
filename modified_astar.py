@@ -10,8 +10,8 @@ I am gonna modify A* as per my own rules
 '''
 length=12#creating dummy value for side of hexagon.side of hexagon is the value that each step of the algorithm takes
 def distance(x,y,a,b):
-    return (((a-x)**2)+((b-y)**2))**.5
-print(distance(3,4))
+    return (((a-x)**2)+((b-y)**2)) #distance formula without taking root
+
 
 '''
 now I need a function to move to the shortest path
@@ -32,13 +32,14 @@ class Node():
     
 
 def far(start,end):
-    return distance(end[0],start[0],end[1],start[1])
+    return distance(start[0],start[1],end[0],end[1])
     
 def astar(maze, start, end):#maze is contours.start and end are the initial and final coordinates
     """Returns a list of tuples as a path from the given start to the given end in the given maze"""
     start_node=[120,90] #dummy values for start and end
     end_node=[420,90]
     # Create start and end node
+    start_node = Node(None, start)
     end_node = Node(None, end)
     end_node.g = end_node.h = end_node.f = 0
     # Initialize both open and closed list
@@ -98,7 +99,7 @@ def astar(maze, start, end):#maze is contours.start and end are the initial and 
 
             # Create the f, g, and h values
             child.g = current_node.g + length
-            child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
+            child.h = far(child.position,end_node.position) #I must remember some major errors must occcur due to this line if the output is not working.else,Im good 
             child.f = child.g + child.h
 
             # Child is already in the open list
