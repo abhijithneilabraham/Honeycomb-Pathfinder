@@ -8,7 +8,7 @@ Created on Mon Jan  7 16:33:00 2019
 '''
 I am gonna modify A* as per my own rules
 '''
-
+length=12#creating dummy value for side of hexagon.side of hexagon is the value that each step of the algorithm takes
 def distance(x,y,a,b):
     return (((a-x)**2)+((b-y)**2))**.5
 print(distance(3,4))
@@ -70,6 +70,7 @@ def astar(maze, start, end):#maze is contours.start and end are the initial and 
             return path[::-1]
         children = []
         corners=[]#putting this here for reference
+        contours=[]#putting this here for reference
         for new_position in corners:
             
             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
@@ -91,12 +92,12 @@ def astar(maze, start, end):#maze is contours.start and end are the initial and 
         for child in children:
 
             # Child is on the closed list
-            for closed_child in closed_list:
+            for closed_child in contours:
                 if child == closed_child:
                     continue
 
             # Create the f, g, and h values
-            child.g = current_node.g + 1
+            child.g = current_node.g + length
             child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
             child.f = child.g + child.h
 
