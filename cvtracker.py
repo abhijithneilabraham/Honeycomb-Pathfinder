@@ -26,10 +26,18 @@ criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.001)
 corners=cv2.cornerSubPix(gray,np.float32(centroids),(5,5),(-1,-1),criteria)
 con1=[]
 con2=[]
+con3=[]
+con4=[]
 for i in range(1,len(corners)):
     con1.append(corners[i][0])
     con2.append(corners[i][1])
-print(con1)       
+for i in range(1,len(con1)):
+    if abs(con1[i]-con1[i-1])>4 and abs(con2[i]-con2[i-1])>4:
+        con3.append(con1[i])    
+        con4.append(con2[i])
+print(con3)
+print(con4)
+
 img[dst>0.1*dst.max()]=[0,0,255]
 
 cv2.namedWindow('image')
