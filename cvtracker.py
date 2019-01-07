@@ -24,11 +24,15 @@ dst = np.uint8(dst)
 ret, labels, stats, centroids = cv2.connectedComponentsWithStats(dst)
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.001)
 corners = cv2.cornerSubPix(gray,np.float32(centroids),(5,5),(-1,-1),criteria)
-con=[]
+res = np.hstack((centroids,corners))
+res = np.int0(res)
+img[res[:,1],res[:,0]]=[0,0,255]
+img[res[:,3],res[:,2]] = [0,255,0]
 for i in range(1, len(corners)):
-    print(corners[i])
+    print(corners)
+       
 img[dst>0.1*dst.max()]=[0,0,255]
-print(con)
+
 cv2.namedWindow('image')
 cv2.setMouseCallback('image',draw_circle) 
 #result is dilated for marking the corners, not important
