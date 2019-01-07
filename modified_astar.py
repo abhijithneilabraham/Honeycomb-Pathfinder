@@ -36,20 +36,18 @@ end=[100,200]
 def far(start,end):
     return distance(end[0],start[0],end[1],start[1])
     
-def astar(maze, start, end):
+def astar(maze, start, end):#maze is contours.start and end are the initial coordinates
     """Returns a list of tuples as a path from the given start to the given end in the given maze"""
-
+    start_node=[]
+    end_node=[]
     # Create start and end node
-    start_node = Node(None, start)
-    start_node.g = start_node.h = start_node.f = 0
-    end_node = Node(None, end)
-    end_node.g = end_node.h = end_node.f = 0    
+  
     # Initialize both open and closed list
     open_list = []
     closed_list = []
 
     # Add the start node
-    open_list.append(start_node)
+    open_list.append(far(start,end))
     
     while len(open_list) > 0:
 
