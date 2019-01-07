@@ -19,18 +19,17 @@ dst = cv2.dilate(dst,None)
 ret, dst = cv2.threshold(dst,0.01*dst.max(),255,0)
 dst = np.uint8(dst)
 
-
+corners=[]
 # define the criteria to stop and refine the corners
 ret, labels, stats, centroids = cv2.connectedComponentsWithStats(dst)
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.001)
-corners = cv2.cornerSubPix(gray,np.float32(centroids),(5,5),(-1,-1),criteria)
-res = np.hstack((centroids,corners))
-res = np.int0(res)
-img[res[:,1],res[:,0]]=[0,0,255]
-img[res[:,3],res[:,2]] = [0,255,0]
-for i in range(1, len(corners)):
-    print(corners)
-       
+corners=cv2.cornerSubPix(gray,np.float32(centroids),(5,5),(-1,-1),criteria)
+con1=[]
+con2=[]
+for i in range(1,len(corners)):
+    con1.append(corners[i][0])
+    con2.append(corners[i][1])
+print(con1)       
 img[dst>0.1*dst.max()]=[0,0,255]
 
 cv2.namedWindow('image')
@@ -45,9 +44,4 @@ end = (428, 90)
 path = astar(contours, start, end)
 print(path)
 
-    
-while(1):
-    cv2.imshow('image',img)
-    if cv2.waitKey(20) & 0xFF == 27:
-        break
-cv2.destroyAllWindows()
+
