@@ -29,7 +29,6 @@ def astar(maze, start, end):
     start_node.g = start_node.h = start_node.f = 0
     end_node = Node(None, end)
     end_node.g = end_node.h = end_node.f = 0
-
     # Initialize both open and closed list
     open_list = []
     closed_list = []

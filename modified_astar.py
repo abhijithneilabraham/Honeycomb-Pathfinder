@@ -70,18 +70,17 @@ def astar(contours,corners, start, end):#maze is contours.start and end are the 
                 current = current.parent
             return path[::-1]
         children = []
-        #putting this here for reference
-        #putting this here for reference
+        
         for new_position in corners:
             
             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
              
             # Make sure within range
-            if node_position[0] > (len(maze) - 1) or node_position[0] < 0 or node_position[1] > (len(maze[len(maze)-1]) -1) or node_position[1] < 0:
+            if node_position[0] > (len(contours) - 1) or node_position[0] < 0 or node_position[1] > (len(contours[len(contours)-1]) -1) or node_position[1] < 0:
                 continue
 
             # Make sure walkable terrain
-            if maze[node_position[0]][node_position[1]] != 0:
+            if contours[node_position[0]][node_position[1]] != 0:
                 continue
 
             # Create new node
@@ -93,7 +92,7 @@ def astar(contours,corners, start, end):#maze is contours.start and end are the 
         for child in children:
 
             # Child is on the closed list
-            for closed_child in contours:
+            for closed_child in closed_list:
                 if child == closed_child:
                     continue
 
