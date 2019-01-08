@@ -33,7 +33,6 @@ ret, labels, stats, centroids = cv2.connectedComponentsWithStats(dst)
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.001)
 corners=cv2.cornerSubPix(gray,np.float32(centroids),(5,5),(-1,-1),criteria)
 
-print(contours)
 
 
 img[dst>0.1*dst.max()]=[0,0,255]
@@ -44,9 +43,9 @@ cv2.setMouseCallback('image',draw_circle)
 
 # Threshold for an optimal value, it may vary depending on the image.
 
-start = (120, 90)
-end = (428, 90)
+start = ( 99.46604 , 98.886505)
+end = (132.51556,  32.676155)
 
-path = astar(contours, start, end)
+path = astar(contours,corners, start, end)
 print(path)
 
