@@ -8,7 +8,7 @@ Created on Mon Jan  7 16:33:00 2019
 '''
 I am gonna modify A* as per my own rules
 '''
-length=12#creating dummy value for side of hexagon.side of hexagon is the value that each step of the algorithm takes
+length=33.1#creating dummy value for side of hexagon.side of hexagon is the value that each step of the algorithm takes
 def distance(x,y,a,b):
     return (((a-x)**2)+((b-y)**2)) #distance formula without taking root
 
