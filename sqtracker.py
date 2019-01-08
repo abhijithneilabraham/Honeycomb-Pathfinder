@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jan  8 12:41:19 2019
+
+@author: abhijithneilabraham
+"""
+
 import numpy as np
 import cv2 
 from modified_astar import astar
@@ -8,7 +16,7 @@ def draw_circle(event,x,y,flags,param):
         cv2.circle(img,(x,y),1,(255,0,0),-1)
         print(x,y)
         
-img=cv2.imread('honeycomb.jpg')#read the image
+img=cv2.imread('square.jpeg')#read the image
 imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 ret,thresh = cv2.threshold(imgray,127,255,0)
 im2, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)#to greyscale conversion
@@ -24,21 +32,9 @@ corners=[]
 ret, labels, stats, centroids = cv2.connectedComponentsWithStats(dst)
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.001)
 corners=cv2.cornerSubPix(gray,np.float32(centroids),(5,5),(-1,-1),criteria)
-con1=[]
-con2=[]
-con3=[]
-con4=[]
-for i in range(1,len(corners)):
-    con1.append(corners[i][0])
-    con2.append(corners[i][1])
-for i in range(1,len(con1)):
-    if abs(con1[i]-con1[i-1])>4 and abs(con2[i]-con2[i-1])>4:
-        con3.append(con1[i])    
-        con4.append(con2[i])
 
-abc=[con3,con4]
+print(contours)
 
-print(abc)
 
 img[dst>0.1*dst.max()]=[0,0,255]
 
@@ -54,8 +50,3 @@ end = (428, 90)
 path = astar(contours, start, end)
 print(path)
 
-while(1):
-    cv2.imshow('image',img)
-    if cv2.waitKey(20) & 0xFF == 27:
-        break
-cv2.destroyAllWindows()
